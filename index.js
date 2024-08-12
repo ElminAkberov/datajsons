@@ -1,9 +1,16 @@
-import express from "express"
-const app = express()
-const port = 9000
-app.use("/",(req,res)=>{
-    res.json({message:"Hellos"})
-})
-app.listen(9000,()=>{
-    console.log(`Starting Server on Port ${port}`)
-})
+import express from "express";
+import fs from "fs";
+
+const app = express();
+const port = 9000;
+
+// db.json dosyasını oku
+const dbData = JSON.parse(fs.readFileSync("db.json", "utf8"));
+
+app.use("/", (req, res) => {
+    res.json(dbData);
+});
+
+app.listen(port, () => {
+    console.log(`Starting Server on Port ${port}`);
+});
